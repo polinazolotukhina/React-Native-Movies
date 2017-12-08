@@ -1,35 +1,64 @@
 import React, { Component } from 'react';
-import { Text, TouchableWithoutFeedback, View, LayoutAnimation, Image, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity, Image, LayoutAnimation } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
-import {CardSection, Card} from './common'
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import * as actions from './../actions';
 
 class ListItem extends Component {
+    componentWillUpdate() {
+        LayoutAnimation.configureNext(CustomLayoutSpring);
+   }
+    movieInfo = (movieId, selectedId) => {
+        const { selectedMovie } = this.props.movies;
+        if (movieId === selectedId) {
+            return (
+                <View>
+                    <Text style={styles.paragraphStyle}>{selectedMovie.overview}</Text>
+                    <Text style={styles.paragraphStyle}>Release Day:{selectedMovie.release_date}</Text>
+                    <Text style={styles.paragraphStyle}>Rating: {selectedMovie.vote_average}</Text>
+                </View>
+            );
+        } return (<Text style={styles.paragraphStyle}>More...</Text>);
+    }
     render() {
-        const { movie } = this.props;
-        console.log("movie", movie)
+        const { movie, movies } = this.props;
         return (
-            <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 20 }}>
             <View>
                     {
-                      movie&&movie.map((item, index) =>
+                      movie && movie.map((item, index) =>
                         <View key={index} style={styles.containerStyle}>
-                             <Image
-                                 source={{ uri: 'https://image.tmdb.org/t/p/w342' + item.backdrop_path }}
+                            <Text style={styles.paragraphStyle}>{item.title}</Text>
+                            <Image
+                                 source={{ uri: `https://image.tmdb.org/t/p/w342${item.backdrop_path}` }}
                                  style={styles.imgStyle}
-                             />
-                            <Text style={styles.headStyle}>{item.title}</Text>
-                            <Text>{item.overview}</Text>
-                            <Text style={styles.rateStyle}>Release Day:{item.release_date}</Text>
-                            <Text style={styles.rateStyle}>Rating: {item.vote_average}</Text>
+                            />
+
+                            <TouchableOpacity
+                                 style={ styles.TouchableOpacityStyle}
+                                 onPress={() => { this.props.actions.selectMovie(item); }}
+                            >
+                                { movies.selectedMovie ?
+                                    (this.movieInfo(item.id, movies.selectedMovie.id)
+                                    ) : (<Text style={styles.paragraphStyle}>More...</Text>)
+                                }
+                            </TouchableOpacity>
                         </View>)
                     }
-                    </View>
-            </ScrollView>
+            </View>
+
         );
     }
 }
 const styles = {
+    TouchableOpacityStyle: {
+        backgroundColor: '#CBF1E8',
+        borderColor: '#84D8D0',
+        borderRadius: 4,
+        borderWidth: 1,
+        width: '100%'
+
+    },
     containerStyle: {
         flex: 1,
         flexDirection: 'column',
@@ -43,16 +72,43 @@ const styles = {
         width: '100%',
         height: 250,
     },
-    headStyle: {
+    paragraphStyle: {
         padding: 10,
         fontSize: 20
-    },
-    rateStyle: {
-        fontSize: 15,
-        paddingTop: 10
     }
-
-
 };
 
-export default ListItem;
+const CustomLayoutSpring = {
+    duration: 50,
+    create: {
+      type: LayoutAnimation.Types.spring,
+      property: LayoutAnimation.Properties.opacity,
+    },
+    update: {
+      type: LayoutAnimation.Types.curveEaseInEaseOut,
+    },
+  };
+
+ListItem.propTypes = {
+    actions: PropTypes.object.isRequired,
+    movies: PropTypes.object.isRequired,
+};
+
+
+function mapStateToProps(state) {
+    const { movies } = state;
+    return {
+        movies,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(actions, dispatch)
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ListItem);

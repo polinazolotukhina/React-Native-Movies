@@ -2,6 +2,7 @@ import {
     MOVIES_REQUEST,
     MOVIES_SUCCESS,
     MOVIES_FAILURE,
+    MOVIE_SELECT,
 } from '../constants/actionTypes';
 import initialState from './initialState';
 
@@ -28,7 +29,11 @@ export default function moviesReducer(state = initialState.movies, action) {
               isLoading: false,
               error: action.data,
           };
-
+        case MOVIE_SELECT:
+            return {
+            ...state,
+            selectedMovie: action.selectedMovie
+        };
 
         default:
             return state;

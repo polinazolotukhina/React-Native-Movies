@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
 import * as actions from './../actions';
 import ListMovie from './ListMovie';
 
@@ -17,9 +17,9 @@ class CinemaMovies extends Component {
     render() {
         const { movies } = this.props;
         return (
-            <View>
+            <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 20 }}>
                 <ListMovie movie={movies.data.results} />
-            </View>
+            </ScrollView>
 
         );
     }

@@ -47,3 +47,16 @@ export function getMovies(params, partUrl) {
         .catch((error) => dispatch(moviesFailure(error)));
     };
 }
+
+function movieSelc(movie) {
+    return {
+            type: types.MOVIE_SELECT,
+            selectedMovie: movie
+        };
+}
+
+export function selectMovie(m) {
+  return (dispatch) => {
+    dispatch(movieSelc(m));
+  };
+}
