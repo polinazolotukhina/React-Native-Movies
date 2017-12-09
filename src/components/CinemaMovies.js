@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import * as actions from './../actions';
 import ListMovie from './ListMovie';
+import {Spinner} from './common';
 
 class CinemaMovies extends Component {
     componentWillMount = () => {
@@ -17,9 +18,16 @@ class CinemaMovies extends Component {
     render() {
         const { movies } = this.props;
         return (
-            <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 20 }}>
-                <ListMovie movie={movies.data.results} />
-            </ScrollView>
+            <View>
+            {
+                (movies.isLoading) ? (<Spinner/>):(
+                    <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 20 }}>
+                        <ListMovie movie={movies.data.results} />
+                    </ScrollView>
+                )
+            }
+            </View>
+
 
         );
     }

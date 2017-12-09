@@ -6,6 +6,12 @@ import {
 } from '../constants/actionTypes';
 import initialState from './initialState';
 
+function toggle(item, newItem) {
+    if (item == newItem) {
+        return '';
+    }
+        return newItem;
+}
 
 export default function moviesReducer(state = initialState.movies, action) {
     switch (action.type) {
@@ -32,7 +38,7 @@ export default function moviesReducer(state = initialState.movies, action) {
         case MOVIE_SELECT:
             return {
             ...state,
-            selectedMovie: action.selectedMovie
+            selectedMovie: toggle(state.selectedMovie, action.selectedMovie)
         };
 
         default:

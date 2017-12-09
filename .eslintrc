@@ -4,6 +4,6 @@
     "arrow-body-style":0,
     },
 "globals": {
-  "fetch": false
-}
+      "fetch": false
+    }
 }

@@ -29,15 +29,16 @@ class ListItem extends Component {
                       movie && movie.map((item, index) =>
                         <View key={index} style={styles.containerStyle}>
                             <Text style={styles.paragraphStyle}>{item.title}</Text>
+                            <TouchableOpacity
+                                 style={ styles.TouchableOpacityStyle}
+                                 onPress={() => { this.props.actions.selectMovie(item); }}
+                            >
                             <Image
                                  source={{ uri: `https://image.tmdb.org/t/p/w342${item.backdrop_path}` }}
                                  style={styles.imgStyle}
                             />
 
-                            <TouchableOpacity
-                                 style={ styles.TouchableOpacityStyle}
-                                 onPress={() => { this.props.actions.selectMovie(item); }}
-                            >
+
                                 { movies.selectedMovie ?
                                     (this.movieInfo(item.id, movies.selectedMovie.id)
                                     ) : (<Text style={styles.paragraphStyle}>More...</Text>)
