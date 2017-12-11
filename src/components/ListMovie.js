@@ -80,7 +80,7 @@ const styles = {
 };
 
 const CustomLayoutSpring = {
-    duration: 50,
+    duration: 200,
     create: {
       type: LayoutAnimation.Types.spring,
       property: LayoutAnimation.Properties.opacity,

@@ -5,16 +5,18 @@ import { bindActionCreators } from 'redux';
 import { ScrollView, View } from 'react-native';
 import * as actions from './../actions';
 import ListMovie from './ListMovie';
-import {Spinner} from './common';
+import { Spinner } from './common';
 
-class CinemaMovies extends Component {
+class KidsMovies extends Component {
     componentWillMount = () => {
         const params = {
-            'primary_release_date.gte': (new Date()).toISOString().split('T')[0]
+            certification_country: 'US',
+            'certification.lte': 'G',
+            sort_by: 'popularity.desc'
+
         };
         this.props.actions.getMovies(params, '/3/discover/movie?');
     };
-
     render() {
         const { movies } = this.props;
         return (
@@ -32,7 +34,7 @@ class CinemaMovies extends Component {
         );
     }
 }
-CinemaMovies.propTypes = {
+KidsMovies.propTypes = {
     actions: PropTypes.object.isRequired,
     movies: PropTypes.object.isRequired,
 };
@@ -54,4 +56,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CinemaMovies);
+)(KidsMovies);

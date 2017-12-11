@@ -33,6 +33,7 @@ export function getMovies(params, partUrl) {
       ...params,
       api_key: API_KEY
     };
+
     const query = queryString.stringify(parameters);
     const url = `https://api.themoviedb.org${partUrl}${query}`;
     console.log(url);
