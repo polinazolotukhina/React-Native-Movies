@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { ScrollView, View } from 'react-native';
 import * as actions from './../actions';
 import ListMovie from './ListMovie';
-import {Spinner} from './common';
+import { Spinner } from './common';
 
 class CinemaMovies extends Component {
     componentWillMount = () => {

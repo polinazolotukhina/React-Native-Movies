@@ -5,20 +5,17 @@ import { bindActionCreators } from 'redux';
 import { ScrollView, View } from 'react-native';
 import * as actions from './../actions';
 import ListMovie from './ListMovie';
-import { Spinner, Input } from './common';
+import { Spinner, Input, CardSection } from './common';
 
-class Search extends React.Component {
+class Search extends Component {
     constructor(props) {
         super(props);
-        this.search = this.search.bind(this);
-        this.search({ target: { value: '' } });
+        this.search('');
     }
-
     search = (e) => {
-      const query = e;
       const params = {};
-      if (query !== '') {
-        params.query = query;
+      if (e !== '') {
+        params.query = e;
       } else {
         params.query = '';
       }
@@ -32,9 +29,8 @@ class Search extends React.Component {
             <Input
                  placeholder="Search for movies..."
                  onChangeText={(e) => this.search(e)}
-            />
-            <ListMovie movieprops={movies} />
 
+            />
             <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 20 }}>
                 <ListMovie movie={movies.data.results} />
             </ScrollView>

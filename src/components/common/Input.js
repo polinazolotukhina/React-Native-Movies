@@ -25,10 +25,13 @@ const styles = {
         paddingLeft: 5,
         fontSize: 18,
         flex: 2,
-        height: 50,
+        height: 100,
+        // borderColor: '#84D8D0',
+        // borderRadius: 4,
+        // borderWidth: 1,
     },
     containerStyle: {
-        flex: 1,
+        flex: 0.2,
         flexDirection: 'row',
         height: 50,
 
