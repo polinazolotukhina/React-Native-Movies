@@ -7,7 +7,7 @@ import { RaisedTextButton } from 'react-native-material-buttons';
 class Navbar extends Component {
     render() {
         return (
-            <View style={styles.viewStyle}>
+            <View style={styles.containerStyle}>
                 <RaisedTextButton
                     title='Popular  Movies'
                     titleStyle={ styles.buttonStyle}
@@ -38,6 +38,12 @@ class Navbar extends Component {
                     style={styles.textStyle}
                     onPress={() => Actions.search()}
                 />
+                <RaisedTextButton
+                    title='Favourites'
+                    titleStyle={styles.buttonStyle}
+                    style={styles.textStyle}
+                    onPress={() => Actions.favourites()}
+                />
             </View>
         );
     }
@@ -51,8 +57,8 @@ const styles = {
         width: 300,
         height: 60
     },
-    viewStyle: {
-        flex: 2,
+    containerStyle: {
+        flex: 1,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-around',

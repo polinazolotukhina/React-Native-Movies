@@ -1,5 +1,6 @@
-import * as types from '../constants/actionTypes';
+import firebase from 'firebase';
 const queryString = require('query-string');
+import * as types from '../constants/actionTypes';
 
 
 function moviesRequest() {
@@ -27,6 +28,8 @@ function moviesFailure(json) {
     };
 }
 
+//================================    FETCH    =======================================
+
 export function getMovies(params, partUrl) {
     const API_KEY = '79eb5f868743610d9bddd40d274eb15d';
     const parameters = {
@@ -49,6 +52,7 @@ export function getMovies(params, partUrl) {
     };
 }
 
+//===============================    SELECT    ========================================
 function movieSelc(movie) {
     return {
             type: types.MOVIE_SELECT,
@@ -61,3 +65,41 @@ export function selectMovie(m) {
     dispatch(movieSelc(m));
   };
 }
+
+//============================       FAVOURITES       ===============================
+
+
+export const saveToFavourites = (movie) => {
+    return (dispatch) => {
+        firebase.database().ref('/movies')
+            .push(movie)
+            .then(() => {
+                dispatch({ type: types.MOVIE_SAVE_TO_DB });
+            });
+        };
+};
+
+
+export const removeFromFavourites = (movie) => {
+    return (dispatch) => {
+        console.log('efren', movie);
+
+        firebase.database().ref(`/movies/${movie}`)
+            .remove()
+            .then(() => {
+                dispatch({ type: types.MOVIE_REMOVE_FROM_DB });
+            });
+        };
+};
+
+export const favouritesFetch = () => {
+    return (dispatch) => {
+        firebase.database().ref('movies')
+        .on('value', snapshot => {
+             dispatch({
+                 type: types.FAVOURITES_FETCH,
+                 favourites: snapshot.val()
+             });
+        });
+    };
+};

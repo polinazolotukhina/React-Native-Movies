@@ -3,9 +3,13 @@ import { Text, View, TouchableOpacity, Image, LayoutAnimation } from 'react-nati
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
+import { RaisedTextButton } from 'react-native-material-buttons';
 import * as actions from './../actions';
 
 class ListItem extends Component {
+    componentWillMount = () => {
+        this.props.actions.favouritesFetch();
+    };
     componentWillUpdate() {
         LayoutAnimation.configureNext(CustomLayoutSpring);
    }
@@ -17,10 +21,24 @@ class ListItem extends Component {
                     <Text style={styles.paragraphStyle}>{selectedMovie.overview}</Text>
                     <Text style={styles.paragraphStyle}>Release Day:{selectedMovie.release_date}</Text>
                     <Text style={styles.paragraphStyle}>Rating: {selectedMovie.vote_average}</Text>
+                    {this.renderButton(selectedMovie)}
+
                 </View>
             );
         } return (<Text style={styles.paragraphStyle}>More...</Text>);
     }
+    renderButton = (m) => {
+        if (this.props.remove) {
+            return (<RaisedTextButton
+                        title='Remove From Favourites'
+                        onPress={() => { this.props.actions.removeFromFavourites(m.id); }}
+                    />);
+        }
+        return (<RaisedTextButton
+                    title='Save To Favourites'
+                    onPress={() => { this.props.actions.saveToFavourites(m); }}
+                />);
+    };
     render() {
         const { movie, movies } = this.props;
         return (
@@ -30,7 +48,7 @@ class ListItem extends Component {
                         <View key={index} style={styles.containerStyle}>
                             <Text style={styles.paragraphStyle}>{item.title}</Text>
                             <TouchableOpacity
-                                 style={ styles.TouchableOpacityStyle}
+                                 style={styles.TouchableOpacityStyle}
                                  onPress={() => { this.props.actions.selectMovie(item); }}
                             >
                             <Image

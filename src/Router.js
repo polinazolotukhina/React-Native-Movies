@@ -5,6 +5,7 @@ import PopularMovies from './components/PopularMovies';
 import KidsMovies from './components/KidsMovies';
 import DramaMovies from './components/DramaMovies';
 import Search from './components/Search';
+import Favourites from './components/Favourites';
 import Navbar from './components/Navbar';
 
 
@@ -17,6 +18,7 @@ const RouterComponent = () => (
             <Scene key="kidsMovies" component={KidsMovies} title="Kids Movies" />
             <Scene key="dramaMovies" component={DramaMovies} title="Best Drama" />
             <Scene key="search" component={Search} title="Search" />
+            <Scene key="favourites" component={Favourites} title="Favourites" />
         </Scene>
     </Router>
 );

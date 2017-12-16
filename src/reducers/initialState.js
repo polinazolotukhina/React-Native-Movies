@@ -3,7 +3,8 @@ export default {
         data: [],
         isLoading: false,
         error: false,
-        selectedMovie: {}
+        selectedMovie: {},
+        favourites: {}
     },
 
 };

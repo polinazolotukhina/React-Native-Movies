@@ -3,6 +3,7 @@ import {
     MOVIES_SUCCESS,
     MOVIES_FAILURE,
     MOVIE_SELECT,
+    FAVOURITES_FETCH,
 } from '../constants/actionTypes';
 import initialState from './initialState';
 
@@ -40,7 +41,11 @@ export default function moviesReducer(state = initialState.movies, action) {
             ...state,
             selectedMovie: toggle(state.selectedMovie, action.selectedMovie)
         };
-
+        case FAVOURITES_FETCH:
+            return {
+                ...state,
+                favourites: action.favourites
+            };
         default:
             return state;
     }
