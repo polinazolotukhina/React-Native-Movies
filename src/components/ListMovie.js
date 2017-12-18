@@ -35,7 +35,7 @@ class ListItem extends Component {
                     />);
         }
         return (<RaisedTextButton
-                    title='Save To Favourites'
+                    title= 'Save To Favourites'
                     onPress={() => { this.props.actions.saveToFavourites(m); }}
                 />);
     };
@@ -59,7 +59,11 @@ class ListItem extends Component {
 
                                 { movies.selectedMovie ?
                                     (this.movieInfo(item.id, movies.selectedMovie.id)
-                                    ) : (<Text style={styles.paragraphStyle}>More...</Text>)
+                                    ) : (
+                                        <View style={{ flexDirection: 'column', height: 40, justifyContent:'center' }}>
+                                            <Text style={{ textAlign: 'left', paddingLeft: 10,  }}>More...</Text>
+                                        </View>
+                                        )
                                 }
                             </TouchableOpacity>
                         </View>)
@@ -71,11 +75,11 @@ class ListItem extends Component {
 }
 const styles = {
     TouchableOpacityStyle: {
-        backgroundColor: '#CBF1E8',
-        borderColor: '#84D8D0',
+        backgroundColor: '#e0e0e0',
+        borderColor: '#afafaf',
         borderRadius: 4,
         borderWidth: 1,
-        width: '100%'
+        alignSelf: 'stretch'
 
     },
     containerStyle: {
@@ -88,7 +92,6 @@ const styles = {
         paddingBottom: 10,
     },
     imgStyle: {
-        width: '100%',
         height: 250,
     },
     paragraphStyle: {

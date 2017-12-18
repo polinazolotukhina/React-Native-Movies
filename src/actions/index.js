@@ -80,11 +80,9 @@ export const saveToFavourites = (movie) => {
 };
 
 
-export const removeFromFavourites = (movie) => {
+export const removeFromFavourites = (movieID) => {
     return (dispatch) => {
-        console.log('efren', movie);
-
-        firebase.database().ref(`/movies/${movie}`)
+        firebase.database().ref(`/movies/${movieID}`)
             .remove()
             .then(() => {
                 dispatch({ type: types.MOVIE_REMOVE_FROM_DB });
