@@ -68,28 +68,48 @@ export function selectMovie(m) {
 
 //============================       FAVOURITES       ===============================
 
-
-export const saveToFavourites = (movie) => {
+export const toggleFavourites = (movie) => {
+    const query = firebase.database().ref('movies').orderByKey();
+    let count = 0;
+    let key;
     return (dispatch) => {
-        firebase.database().ref('/movies')
-            .push(movie)
-            .then(() => {
-                dispatch({ type: types.MOVIE_SAVE_TO_DB });
+        query.once('value')
+            .then((snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                        if (childData.id == movie.id) {
+                              count++;
+                              key = childSnapshot.key;
+                        }
+                });
+                if (count > 0) {
+                    firebase.database().ref(`/movies/${key}`)
+                        .remove()
+                        .then(() => {
+                            dispatch({ type: types.MOVIE_REMOVE_FROM_DB });
+                        });
+                } else {
+                    firebase.database().ref('/movies')
+                        .push(movie)
+                        .then(() => {
+                            dispatch({ type: types.MOVIE_SAVE_TO_DB });
+                        });
+                }
             });
-        };
+    };
 };
 
 
 export const removeFromFavourites = (movieID) => {
+    console.log("movieID", movieID)
     return (dispatch) => {
         firebase.database().ref(`/movies/${movieID}`)
             .remove()
             .then(() => {
                 dispatch({ type: types.MOVIE_REMOVE_FROM_DB });
             });
-        };
+    };
 };
-
 export const favouritesFetch = () => {
     return (dispatch) => {
         firebase.database().ref('movies')

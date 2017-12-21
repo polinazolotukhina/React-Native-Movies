@@ -14,15 +14,15 @@ class Favourites extends Component {
     };
     render() {
         const { favourites } = this.props.movies;
-        let fav = [];
-        favourites&&Object.keys(favourites).forEach(key => {
-          favourites[key]['id'] = key;
-          fav.push(favourites[key]);
-        });
+        // let fav = [];
+        // favourites&&Object.keys(favourites).forEach(key => {
+        //   favourites[key]['id'] = key;
+        //   fav.push(favourites[key]);
+        // });
         return (
             <View>
                     <ScrollView contentContainerStyle={{ paddingVertical: 20, paddingHorizontal: 20 }}>
-                        <ListMovie remove movie={Object.values(fav)} />
+                        <ListMovie movie={Object.values(favourites)} />
                     </ScrollView >
             </View>
 

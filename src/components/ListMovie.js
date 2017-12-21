@@ -28,15 +28,9 @@ class ListItem extends Component {
         } return (<Text style={styles.paragraphStyle}>More...</Text>);
     }
     renderButton = (m) => {
-        if (this.props.remove) {
-            return (<RaisedTextButton
-                        title='Remove From Favourites'
-                        onPress={() => { this.props.actions.removeFromFavourites(m.id); }}
-                    />);
-        }
         return (<RaisedTextButton
-                    title= 'Save To Favourites'
-                    onPress={() => { this.props.actions.saveToFavourites(m); }}
+                    title='Save To Favourites'
+                    onPress={() => { this.props.actions.toggleFavourites(m); }}
                 />);
     };
     render() {
