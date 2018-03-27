@@ -11,12 +11,8 @@ import RouterComponent from './src/Router';
 export default class App extends Component<{}> {
     componentWillMount() {
         const config = {
-          apiKey: "AIzaSyAkS15GACqcklifHjkU4trD58SGtr_9_pw",
-          authDomain: "mobile-f848b.firebaseapp.com",
-          databaseURL: "https://mobile-f848b.firebaseio.com",
-          projectId: "mobile-f848b",
-          storageBucket: "",
-          messagingSenderId: "1014830391680"
+    //......PLEASE ADD KEYS...
+
         };
         firebase.initializeApp(config);
     }
